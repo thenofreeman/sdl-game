@@ -31,12 +31,23 @@ int main(int argc, char* args[])
 		}
 		else
 		{
-			SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+			SDL_Event event;
 
-			SDL_UpdateWindowSurface(gWindow);
+			bool quit = false;
+			while (!quit)
+			{
+				while (SDL_PollEvent(&event))
+				{
+					if (event.type == SDL_QUIT)
+					{
+						quit = true;
+					}
 
-			// Temporary hack to keep the window open on all platforms
-            SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
+					SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+					SDL_UpdateWindowSurface(gWindow);
+				}
+			}
 		}
 	}
 
