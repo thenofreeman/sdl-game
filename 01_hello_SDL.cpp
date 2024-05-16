@@ -9,48 +9,91 @@ and may not be redistributed without written permission.*/
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+bool init();
+bool loadMedia();
+void close();
+
+SDL_Window* gWindow = nullptr;
+SDL_Surface* gScreenSurface = nullptr;
+SDL_Surface* gHelloWorld = nullptr;
+
 int main(int argc, char* args[])
 {
-	//The window we'll be rendering to
-	SDL_Window* window = NULL;
-	
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
-
-	//Initialize SDL
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (!init())
 	{
-		std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+		std::cerr << "Failed to initialize!" << std::endl;
 	}
 	else
 	{
-		//Create window
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if( window == NULL )
+		if (!loadMedia())
 		{
-			std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+			std::cerr << "Failed to load media!" << std::endl;
 		}
 		else
 		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface(window);
+			SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
 
-			//Fill the surface white
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-			
-			//Update the surface
-			SDL_UpdateWindowSurface(window);
-            
-            //Hack to get window to stay up
+			SDL_UpdateWindowSurface(gWindow);
+
+			// Temporary hack to keep the window open on all platforms
             SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
 		}
 	}
 
-	//Destroy window
-	SDL_DestroyWindow(window);
-
-	//Quit SDL subsystems
-	SDL_Quit();
+	close();
 
 	return 0;
+}
+
+bool init()
+{
+	bool success = true;
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+		success = false;
+	}
+	else
+	{
+		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if(gWindow == nullptr)
+		{
+			std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+			success = false;
+		}
+		else
+		{
+			gScreenSurface = SDL_GetWindowSurface(gWindow);
+		}
+	}
+
+	return success;
+}
+
+
+bool loadMedia()
+{
+	bool success = true;
+
+	std::string image_uri = "hello_world.bmp";
+	gHelloWorld = SDL_LoadBMP(image_uri.c_str());
+
+	if (gHelloWorld == nullptr)
+	{
+		std::cerr << "Unable to load image " << image_uri << "! SDL Error: " << SDL_GetError() << std::endl;
+	}
+
+	return success;
+}
+
+void close()
+{
+	SDL_FreeSurface(gHelloWorld);
+	gHelloWorld = nullptr;
+
+	SDL_DestroyWindow(gWindow);
+	gWindow = nullptr;
+
+	SDL_Quit();
 }
