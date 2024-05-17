@@ -9,13 +9,25 @@ and may not be redistributed without written permission.*/
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+enum KeyPressSurfaces
+{
+    KEY_PRESS_SURFACE_DEFAULT,
+    KEY_PRESS_SURFACE_UP,
+    KEY_PRESS_SURFACE_DOWN,
+    KEY_PRESS_SURFACE_LEFT,
+    KEY_PRESS_SURFACE_RIGHT,
+    KEY_PRESS_SURFACE_TOTAL
+};
+
 bool init();
 bool loadMedia();
 void close();
+SDL_Surface* loadSurface(std::string path);
 
 SDL_Window* gWindow = nullptr;
 SDL_Surface* gScreenSurface = nullptr;
-SDL_Surface* gHelloWorld = nullptr;
+SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
+SDL_Surface* gCurrentSurface = nullptr;
 
 int main(int argc, char* args[])
 {
@@ -87,7 +99,7 @@ bool loadMedia()
 {
 	bool success = true;
 
-	std::string image_uri = "hello_world.bmp";
+	std::string image_uri = "res/hello_world.bmp";
 	gHelloWorld = SDL_LoadBMP(image_uri.c_str());
 
 	if (gHelloWorld == nullptr)
@@ -107,4 +119,15 @@ void close()
 	gWindow = nullptr;
 
 	SDL_Quit();
+}
+
+SDL_Surface* loadSurface(std::string path)
+{
+	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+	if (loadedSurface == nullptr)
+	{
+		std::cerr << "Unable to load image " << path << "! SDL Error: " << SDL_GetError() << std::endl;
+	}
+
+	return loadedSurface;
 }
