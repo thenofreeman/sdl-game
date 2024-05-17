@@ -21,6 +21,7 @@ enum KeyPressSurfaces
 
 bool init();
 bool loadMedia();
+void run();
 void close();
 SDL_Surface* loadSurface(std::string path);
 
@@ -43,23 +44,7 @@ int main(int argc, char* args[])
 		}
 		else
 		{
-			SDL_Event event;
-
-			bool quit = false;
-			while (!quit)
-			{
-				while (SDL_PollEvent(&event))
-				{
-					if (event.type == SDL_QUIT)
-					{
-						quit = true;
-					}
-
-					SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
-
-					SDL_UpdateWindowSurface(gWindow);
-				}
-			}
+			run();
 		}
 	}
 
@@ -108,6 +93,27 @@ bool loadMedia()
 	}
 
 	return success;
+}
+
+void run()
+{
+	SDL_Event event;
+
+	bool quit = false;
+	while (!quit)
+	{
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+				quit = true;
+			}
+
+			SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+			SDL_UpdateWindowSurface(gWindow);
+		}
+	}
 }
 
 void close()
