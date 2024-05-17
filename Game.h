@@ -10,13 +10,13 @@ class Game
         Game();
         virtual ~Game() { }
 
-        void run(SDL_Window* window);
+        void run(SDL_Window*& window);
         void shutdown();
 
     private:
         void processEvents();
         void update(const int& deltaTime);
-        void draw(SDL_Window* window);
+        void draw(SDL_Window*& window);
 
         // REFACTOR
         void freeSurfaces();
@@ -27,6 +27,7 @@ class Game
 
         // REFACTOR
         SDL_Surface* screenSurface;
+        SDL_Surface* gCurrentSurface;
         // ----
 
 };

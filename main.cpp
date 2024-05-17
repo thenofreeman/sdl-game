@@ -7,8 +7,8 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-bool initializeSDL(SDL_Window* window);
-void shutdownSDL(SDL_Window* window);
+bool initializeSDL(SDL_Window*& window);
+void shutdownSDL(SDL_Window*& window);
 
 int main(int argc, char* args[])
 {
@@ -31,7 +31,7 @@ int main(int argc, char* args[])
 	return 0;
 }
 
-bool initializeSDL(SDL_Window* window)
+bool initializeSDL(SDL_Window*& window)
 {
 	bool success = true;
 
@@ -53,7 +53,7 @@ bool initializeSDL(SDL_Window* window)
 	return success;
 }
 
-void shutdownSDL(SDL_Window* window)
+void shutdownSDL(SDL_Window*& window)
 {
 	SDL_DestroyWindow(window);
 	window = nullptr;

@@ -1,8 +1,5 @@
 #include "Game.h"
 
-// REFACTOR
-SDL_Surface* gCurrentSurface = nullptr;
-
 SDL_Surface* loadSurface(std::string path)
 {
 	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
@@ -14,14 +11,14 @@ SDL_Surface* loadSurface(std::string path)
 	return loadedSurface;
 }
 
-bool loadMedia()
+bool loadMedia(SDL_Surface*& surface)
 {
 	bool success = true;
 
 	std::string image_uri = "res/hello_world.bmp";
-	gCurrentSurface = SDL_LoadBMP(image_uri.c_str());
+	surface = SDL_LoadBMP(image_uri.c_str());
 
-	if (gCurrentSurface == nullptr)
+	if (surface == nullptr)
 	{
 		std::cerr << "Unable to load image " << image_uri << "! SDL Error: " << SDL_GetError() << std::endl;
 	}
@@ -36,18 +33,22 @@ Game::Game()
   : isRunning{true}
 { 
     // REFACTOR
-    SDL_Surface* screenSurface = nullptr;
+    screenSurface = nullptr;
+    gCurrentSurface = nullptr;
     // ----
 }
 
-void Game::run(SDL_Window* window)
+void Game::run(SDL_Window*& window)
 {
     // REFACTOR
     if (window) 
         screenSurface = SDL_GetWindowSurface(window);
     // ----
 
-    if (!loadMedia())
+    if (window == nullptr)
+        std::cerr << "WHAT" << std::endl;
+
+    if (!loadMedia(gCurrentSurface))
     {
         std::cerr << "Failed to load media!" << std::endl;
     }
@@ -77,7 +78,7 @@ void Game::processEvents()
 void Game::update(const int& deltaTime)
 { }
 
-void Game::draw(SDL_Window* window)
+void Game::draw(SDL_Window*& window)
 {
 	SDL_BlitSurface(gCurrentSurface, NULL, screenSurface, NULL);
 
