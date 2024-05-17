@@ -4,13 +4,15 @@
 
 #include <SDL2/SDL.h>
 
+#include "GlobalEnvironment.h"
+
 class Game
 {
     public:
         Game();
         virtual ~Game() { }
 
-        void run(SDL_Window*& window);
+        void run();
         void shutdown();
 
     private:
@@ -26,7 +28,6 @@ class Game
         bool isRunning;
 
         // REFACTOR
-        SDL_Surface* screenSurface;
         SDL_Surface* gCurrentSurface;
         // ----
 

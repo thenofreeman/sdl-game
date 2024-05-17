@@ -1,5 +1,5 @@
 # files to compile
-OBJS = main.cpp Game.cpp
+OBJS = main.cpp Game.cpp GlobalEnvironment.cpp
 
 # compiler
 CC = g++

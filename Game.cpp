@@ -1,5 +1,6 @@
 #include "Game.h"
 
+// REFACTOR
 SDL_Surface* loadSurface(std::string path)
 {
 	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
@@ -30,23 +31,16 @@ bool loadMedia(SDL_Surface*& surface)
 
 
 Game::Game()
-  : isRunning{true}
+    :   isRunning{true}
 { 
     // REFACTOR
-    screenSurface = nullptr;
     gCurrentSurface = nullptr;
     // ----
 }
 
-void Game::run(SDL_Window*& window)
+void Game::run()
 {
-    // REFACTOR
-    if (window) 
-        screenSurface = SDL_GetWindowSurface(window);
-    // ----
-
-    if (window == nullptr)
-        std::cerr << "WHAT" << std::endl;
+    GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
     if (!loadMedia(gCurrentSurface))
     {
@@ -59,7 +53,7 @@ void Game::run(SDL_Window*& window)
         {
             processEvents();
             update(deltaTime);
-            draw(window);
+            draw(gEnvironment.window);
         }
     }
 }
@@ -80,7 +74,9 @@ void Game::update(const int& deltaTime)
 
 void Game::draw(SDL_Window*& window)
 {
-	SDL_BlitSurface(gCurrentSurface, NULL, screenSurface, NULL);
+    static GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
+
+	SDL_BlitSurface(gCurrentSurface, NULL, gEnvironment.screen, NULL);
 
 	SDL_UpdateWindowSurface(window);
 }
