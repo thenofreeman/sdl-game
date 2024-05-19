@@ -14,7 +14,7 @@ OBJS = $(patsubst $(SRC_DIR)%.cpp,$(OBJ_DIR)%.o,$(SRCS))
 CC = g++
 
 # Compiler flags
-COMPILER_FLAGS = -std=c++17 -w # suppress all warnings
+COMPILER_FLAGS = -std=c++17 -g -w
 
 # Linker flags
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
