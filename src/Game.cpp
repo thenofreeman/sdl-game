@@ -24,28 +24,29 @@ Game::~Game()
 void Game::run()
 {
     GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
-	AssetManager assetManager = AssetManager::getInstance();
 
 	initialize();
 
-	texture = assetManager.load("res/foo.png");
-    if (texture != nullptr)
-    {
-        int deltaTime = 0;
-        while (isRunning)
-        {
-            processEvents();
-            update(deltaTime);
-            draw(gEnvironment.renderer);
-        }
-    }
+	int deltaTime = 0;
+	while (isRunning)
+	{
+		processEvents();
+		update(deltaTime);
+		draw(gEnvironment.renderer);
+	}
 
 	shutdown();
 }
 
 void Game::initialize()
 {
+	AssetManager assetManager = AssetManager::getInstance();
+	texture = assetManager.load("res/foo.png");
 
+	if (texture == nullptr)
+	{
+		std::cerr << "Initialization Issue!" << std::endl;
+	}
 }
 
 void Game::shutdown()
