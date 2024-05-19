@@ -4,17 +4,18 @@
 #include "LineShape.h"
 #include "Color.h"
 #include "View.h"
+
 // REFACTOR
 #include <SDL2/SDL_image.h>
 
-bool loadMedia(SDL_Texture*& texture)
+bool loadMedia(Texture*& texture)
 {
 	bool success = true;
 
 	GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
-	std::string image_uri = "res/texture.png";
-	texture = IMG_LoadTexture(gEnvironment.renderer, image_uri.c_str());
+	std::string image_uri = "res/foo.png";
+	texture->load(image_uri);
 
 	if (texture == nullptr)
 	{
@@ -32,7 +33,14 @@ Game::Game()
     :   isRunning{true}
 { 
     // REFACTOR
-    texture = nullptr;
+    texture = new Texture;
+    // ----
+}
+
+Game::~Game()
+{ 
+    // REFACTOR
+    delete texture;
     // ----
 }
 
@@ -115,13 +123,5 @@ void Game::draw(SDL_Renderer*& renderer)
 
 void Game::shutdown()
 {
-    freeSurfaces();
+	texture->free();
 }
-
-// REFACTOR
-void Game::freeSurfaces()
-{
-	SDL_DestroyTexture(texture);
-	texture = nullptr;
-}
-// ----

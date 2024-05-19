@@ -4,6 +4,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "Color.h"
+
 class GlobalEnvironment
 {
     public:
@@ -25,6 +27,8 @@ class GlobalEnvironment
 
         int windowWidth;
         int windowHeight;
+
+        SDL_Color keyingColor;
 
     private:
         std::string title;

@@ -5,12 +5,13 @@
 #include <SDL2/SDL.h>
 
 #include "GlobalEnvironment.h"
+#include "Texture.h"
 
 class Game
 {
     public:
         Game();
-        virtual ~Game() { }
+        virtual ~Game();
 
         void run();
         void shutdown();
@@ -20,15 +21,11 @@ class Game
         void update(const int& deltaTime);
         void draw(SDL_Renderer*& renderer);
 
-        // REFACTOR
-        void freeSurfaces();
-        // ----
-
     private:
         bool isRunning;
 
         // REFACTOR
-        SDL_Texture* texture;
+        Texture* texture;
         // ----
 
 };

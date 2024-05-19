@@ -8,7 +8,8 @@ GlobalEnvironment::GlobalEnvironment()
         windowWidth{640},
         screen{nullptr},
         renderer{nullptr},
-        title{"Default Title"}
+        title{"Default Title"},
+		keyingColor{Color::CYAN}
 { }
 
 bool GlobalEnvironment::initialize()

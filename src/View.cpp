@@ -1,6 +1,6 @@
 #include "View.h"
 
-View::View(SDL_Rect rect, SDL_Texture*& texture)
+View::View(SDL_Rect rect, Texture*& texture)
     : body{rect},
       texture{texture}
 { }
@@ -14,5 +14,5 @@ void View::update(const int& deltaTime)
 void View::draw(SDL_Renderer*& renderer) const
 {
     SDL_RenderSetViewport(renderer, &body);
-    SDL_RenderCopy(renderer, texture, NULL, NULL);
+    texture->draw(renderer);
 }
