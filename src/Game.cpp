@@ -26,6 +26,8 @@ void Game::run()
     GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 	AssetManager assetManager = AssetManager::getInstance();
 
+	initialize();
+
 	texture = assetManager.load("res/foo.png");
     if (texture != nullptr)
     {
@@ -37,6 +39,18 @@ void Game::run()
             draw(gEnvironment.renderer);
         }
     }
+
+	shutdown();
+}
+
+void Game::initialize()
+{
+
+}
+
+void Game::shutdown()
+{
+	texture->free();
 }
 
 void Game::processEvents()
@@ -94,9 +108,4 @@ void Game::draw(SDL_Renderer*& renderer)
 		SDL_RenderDrawPoint(renderer, gEnvironment.windowWidth/2, i);
 
 	SDL_RenderPresent(renderer);
-}
-
-void Game::shutdown()
-{
-	texture->free();
 }

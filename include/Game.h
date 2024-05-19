@@ -14,15 +14,18 @@ class Game
         virtual ~Game();
 
         void run();
-        void shutdown();
 
     private:
+        void initialize();
+        void shutdown();
+
         void processEvents();
         void update(const int& deltaTime);
         void draw(SDL_Renderer*& renderer);
 
     private:
         bool isRunning;
+
 
         // REFACTOR
         Texture* texture;
