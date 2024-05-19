@@ -3,41 +3,41 @@
 // REFACTOR
 #include <SDL2/SDL_image.h>
 
-SDL_Surface* loadSurface(std::string path)
+SDL_Texture* loadTexture(std::string path)
 {
-	SDL_Surface* optimizedSurface = nullptr;
+	SDL_Texture* newTexture = nullptr;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == nullptr)
 	{
 		std::cerr << "Unable to load image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
 	}
-	else 
+	else
 	{
 		GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, gEnvironment.screen->format, 0);
-		if (optimizedSurface == nullptr)
+		newTexture = SDL_CreateTextureFromSurface(gEnvironment.renderer, loadedSurface);
+		if (newTexture == nullptr)
 		{
-			std::cerr << "Unable to optimize image " << path << "! SDL Error: " << SDL_GetError() << std::endl;
+			std::cerr << "Unable to load image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
 		}
 
 		SDL_FreeSurface(loadedSurface);
 	}
 
-	return optimizedSurface;
+	return newTexture;
 }
 
-bool loadMedia(SDL_Surface*& surface)
+bool loadMedia(SDL_Texture*& texture)
 {
 	bool success = true;
 
-	std::string image_uri = "res/hello_world.bmp";
-	surface = loadSurface(image_uri);
+	std::string image_uri = "res/texture.png";
+	texture = loadTexture(image_uri);
 
-	if (surface == nullptr)
+	if (texture == nullptr)
 	{
-		std::cerr << "Unable to load image " << image_uri << "! SDL Error: " << SDL_GetError() << std::endl;
+		std::cerr << "Unable to load texture image " << image_uri << "! SDL Error: " << SDL_GetError() << std::endl;
 		success = false;
 	}
 
@@ -51,7 +51,7 @@ Game::Game()
     :   isRunning{true}
 { 
     // REFACTOR
-    gCurrentSurface = nullptr;
+    texture = nullptr;
     // ----
 }
 
@@ -59,7 +59,7 @@ void Game::run()
 {
     GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
-    if (!loadMedia(gCurrentSurface))
+    if (!loadMedia(texture))
     {
         std::cerr << "Failed to load media!" << std::endl;
     }
@@ -93,14 +93,10 @@ void Game::draw(SDL_Window*& window)
 {
     static GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
-	SDL_Rect stretchRect;
-	stretchRect.x = 0;
-	stretchRect.y = 0;
-	stretchRect.w = gEnvironment.windowWidth;
-	stretchRect.h = gEnvironment.windowHeight;
-	SDL_BlitSurface(gCurrentSurface, NULL, gEnvironment.screen, &stretchRect);
+	SDL_RenderClear(gEnvironment.renderer);
+	SDL_RenderCopy(gEnvironment.renderer, texture, NULL, NULL);
 
-	SDL_UpdateWindowSurface(window);
+	SDL_RenderPresent(gEnvironment.renderer);
 }
 
 void Game::shutdown()
@@ -111,7 +107,7 @@ void Game::shutdown()
 // REFACTOR
 void Game::freeSurfaces()
 {
-	SDL_FreeSurface(gCurrentSurface);
-	gCurrentSurface = nullptr;
+	SDL_DestroyTexture(texture);
+	texture = nullptr;
 }
 // ----

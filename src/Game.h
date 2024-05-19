@@ -28,7 +28,7 @@ class Game
         bool isRunning;
 
         // REFACTOR
-        SDL_Surface* gCurrentSurface;
+        SDL_Texture* texture;
         // ----
 
 };

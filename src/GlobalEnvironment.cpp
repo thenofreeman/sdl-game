@@ -7,6 +7,7 @@ GlobalEnvironment::GlobalEnvironment()
         windowHeight{480},
         windowWidth{640},
         screen{nullptr},
+        renderer{nullptr},
         title{"Default Title"}
 { }
 
@@ -29,15 +30,27 @@ bool GlobalEnvironment::initialize()
 		}
 		else
 		{
-			int imgFlags = IMG_INIT_PNG;
-			if (!(IMG_Init(imgFlags) & imgFlags))
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			if (renderer == nullptr)
 			{
-				std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+				std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 				success = false;
 			}
-			else // if (window) 
+			else 
 			{
-				screen = SDL_GetWindowSurface(window);
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+				int imgFlags = IMG_INIT_PNG;
+				if (!(IMG_Init(imgFlags) & imgFlags))
+				{
+					std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+					success = false;
+				}
+				else // if (window) 
+				{
+					screen = SDL_GetWindowSurface(window);
+				}
+
 			}
 		}
 
@@ -51,9 +64,12 @@ bool GlobalEnvironment::shutdown()
     // always true... shouldn't be.
     bool success = true;
 
+	SDL_DestroyRenderer(renderer);
+	renderer = nullptr;
 	SDL_DestroyWindow(window);
 	window = nullptr;
 
+	IMG_Quit();
 	SDL_Quit();
 
     return success;

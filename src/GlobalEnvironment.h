@@ -21,6 +21,7 @@ class GlobalEnvironment
     public:
         SDL_Window* window;
         SDL_Surface* screen;
+        SDL_Renderer* renderer;
 
         int windowWidth;
         int windowHeight;
