@@ -17,7 +17,7 @@ CC = g++
 COMPILER_FLAGS = -w # suppress all warnings
 
 # Linker flags
-LINKER_FLAGS = -lSDL2
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 # Path to build directory
 BUILD_PATH = build/
