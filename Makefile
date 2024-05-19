@@ -7,6 +7,8 @@ SRCS = $(wildcard $(SRC_DIR)*.cpp)
 # Object files directory
 OBJ_DIR = build/
 
+INCLUDE_DIR = include/
+
 # Object files
 OBJS = $(patsubst $(SRC_DIR)%.cpp,$(OBJ_DIR)%.o,$(SRCS))
 
@@ -32,7 +34,7 @@ $(OBJ_NAME): $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BUILD_PATH)$(OBJ_NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp | $(OBJ_DIR)
-	$(CC) -c $< -o $@
+	$(CC) -I${INCLUDE_DIR} -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
