@@ -1,14 +1,16 @@
 #include "Game.h"
 
 // REFACTOR
+#include <SDL2/SDL_image.h>
+
 SDL_Surface* loadSurface(std::string path)
 {
 	SDL_Surface* optimizedSurface = nullptr;
 
-	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == nullptr)
 	{
-		std::cerr << "Unable to load image " << path << "! SDL Error: " << SDL_GetError() << std::endl;
+		std::cerr << "Unable to load image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
 	}
 	else 
 	{

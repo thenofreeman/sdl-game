@@ -1,5 +1,7 @@
 #include "GlobalEnvironment.h"
 
+#include <SDL2/SDL_image.h>
+
 GlobalEnvironment::GlobalEnvironment() 
     :   window{nullptr},
         windowHeight{480},
@@ -25,11 +27,20 @@ bool GlobalEnvironment::initialize()
 			std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 			success = false;
 		}
+		else
+		{
+			int imgFlags = IMG_INIT_PNG;
+			if (!(IMG_Init(imgFlags) & imgFlags))
+			{
+				std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+				success = false;
+			}
+			else // if (window) 
+			{
+				screen = SDL_GetWindowSurface(window);
+			}
+		}
 
-        if (window) 
-        {
-            screen = SDL_GetWindowSurface(window);
-        }
 	}
 
 	return success;
