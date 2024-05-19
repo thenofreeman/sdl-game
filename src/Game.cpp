@@ -3,37 +3,14 @@
 // REFACTOR
 #include <SDL2/SDL_image.h>
 
-SDL_Texture* loadTexture(std::string path)
-{
-	SDL_Texture* newTexture = nullptr;
-
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
-	{
-		std::cerr << "Unable to load image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
-	}
-	else
-	{
-		GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
-
-		newTexture = SDL_CreateTextureFromSurface(gEnvironment.renderer, loadedSurface);
-		if (newTexture == nullptr)
-		{
-			std::cerr << "Unable to load image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
-		}
-
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	return newTexture;
-}
-
 bool loadMedia(SDL_Texture*& texture)
 {
 	bool success = true;
 
+	GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
+
 	std::string image_uri = "res/texture.png";
-	texture = loadTexture(image_uri);
+	texture = IMG_LoadTexture(gEnvironment.renderer, image_uri.c_str());
 
 	if (texture == nullptr)
 	{
