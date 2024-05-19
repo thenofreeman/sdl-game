@@ -6,6 +6,8 @@
 
 #include "GlobalEnvironment.h"
 #include "Texture.h"
+#include "Scene.h"
+#include "MenuScene.h"
 
 class Game
 {
@@ -21,14 +23,11 @@ class Game
 
         void processEvents();
         void update(const int& deltaTime);
-        void draw(SDL_Renderer*& renderer);
+        void draw(SDL_Renderer*& renderer) const;
 
     private:
         bool isRunning;
 
-
-        // REFACTOR
-        Texture* texture;
-        // ----
+        Scene* scene;
 
 };
