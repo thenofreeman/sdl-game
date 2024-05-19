@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "RectangleShape.h"
+#include "LineShape.h"
 #include "Color.h"
 // REFACTOR
 #include <SDL2/SDL_image.h>
@@ -91,12 +92,12 @@ void Game::draw(SDL_Renderer*& renderer)
 	}, Color::RED);
 	fillRect.draw(renderer);
 
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF); // RGBA
-	SDL_RenderDrawLine(renderer, 
-					   0,
-					   gEnvironment.windowHeight/2,
-					   gEnvironment.windowWidth, 
-					   gEnvironment.windowHeight/2);
+	LineShape solidLine({ 
+		0, gEnvironment.windowHeight/2
+	}, { 
+		gEnvironment.windowWidth, gEnvironment.windowHeight/2
+	}, Color::BLUE);
+	solidLine.draw(renderer);
 
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0x00, 0xFF);
 	for(int i = 0; i < gEnvironment.windowHeight; i+=4)
