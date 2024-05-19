@@ -18,6 +18,7 @@ Texture* AssetManager::load(std::string path)
 	if (!newTexture->load(path))
 	{
 		std::cerr << "Unable to load texture image " << path << "! SDL Error: " << SDL_GetError() << std::endl;
+        newTexture = nullptr;
 	}
     else
     {
