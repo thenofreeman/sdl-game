@@ -3,6 +3,7 @@
 #include "RectangleShape.h"
 #include "LineShape.h"
 #include "Color.h"
+#include "View.h"
 // REFACTOR
 #include <SDL2/SDL_image.h>
 
@@ -73,8 +74,14 @@ void Game::draw(SDL_Renderer*& renderer)
 {
     static GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+	View view({10, 10, 100, 100}, texture);
+	view.draw(renderer);
+
+	SDL_Rect r = {0, 0, gEnvironment.windowWidth, gEnvironment.windowHeight};
+	SDL_RenderSetViewport(renderer, &r);
 
 	RectangleShape outlineRect({
 		gEnvironment.windowWidth/6, 
