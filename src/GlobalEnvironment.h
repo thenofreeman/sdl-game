@@ -22,10 +22,10 @@ class GlobalEnvironment
         SDL_Window* window;
         SDL_Surface* screen;
 
-    private:
         int windowWidth;
         int windowHeight;
 
+    private:
         std::string title;
 
     private:
