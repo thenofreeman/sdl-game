@@ -73,6 +73,35 @@ void Game::draw(SDL_Window*& window)
 	SDL_RenderClear(gEnvironment.renderer);
 	SDL_RenderCopy(gEnvironment.renderer, texture, NULL, NULL);
 
+	SDL_Rect outlineRect = {
+		gEnvironment.windowWidth/6, 
+		gEnvironment.windowHeight/6,
+		gEnvironment.windowWidth*2/3, 
+		gEnvironment.windowHeight*2/3
+	};
+	SDL_SetRenderDrawColor(gEnvironment.renderer, 0x00, 0xFF, 0x00, 0xFF); // RGBA
+	SDL_RenderFillRect(gEnvironment.renderer, &outlineRect);
+
+	SDL_Rect fillRect = {  // x, y, w, h
+		gEnvironment.windowWidth/4, 
+		gEnvironment.windowHeight/4,
+		gEnvironment.windowWidth/2, 
+		gEnvironment.windowHeight/2
+	};
+	SDL_SetRenderDrawColor(gEnvironment.renderer, 0xFF, 0x00, 0x00, 0xFF); // RGBA
+	SDL_RenderFillRect(gEnvironment.renderer, &fillRect);
+
+	SDL_SetRenderDrawColor(gEnvironment.renderer, 0x00, 0x00, 0xFF, 0xFF); // RGBA
+	SDL_RenderDrawLine(gEnvironment.renderer, 
+					   0,
+					   gEnvironment.windowHeight/2,
+					   gEnvironment.windowWidth, 
+					   gEnvironment.windowHeight/2);
+
+	SDL_SetRenderDrawColor(gEnvironment.renderer, 0xFF, 0xFF, 0x00, 0xFF);
+	for(int i = 0; i < gEnvironment.windowHeight; i+=4)
+		SDL_RenderDrawPoint(gEnvironment.renderer, gEnvironment.windowWidth/2, i);
+
 	SDL_RenderPresent(gEnvironment.renderer);
 }
 
