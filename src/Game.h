@@ -18,7 +18,7 @@ class Game
     private:
         void processEvents();
         void update(const int& deltaTime);
-        void draw(SDL_Window*& window);
+        void draw(SDL_Renderer*& renderer);
 
         // REFACTOR
         void freeSurfaces();
