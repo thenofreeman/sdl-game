@@ -1,39 +1,16 @@
 #include "Game.h"
 
+#include "AssetManager.h"
 #include "RectangleShape.h"
 #include "LineShape.h"
 #include "Color.h"
 #include "View.h"
 
-// REFACTOR
-#include <SDL2/SDL_image.h>
-
-bool loadMedia(Texture*& texture)
-{
-	bool success = true;
-
-	GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
-
-	std::string image_uri = "res/foo.png";
-	texture->load(image_uri);
-
-	if (texture == nullptr)
-	{
-		std::cerr << "Unable to load texture image " << image_uri << "! SDL Error: " << SDL_GetError() << std::endl;
-		success = false;
-	}
-
-	return success;
-}
-// ----
-
-
-
 Game::Game()
     :   isRunning{true}
 { 
     // REFACTOR
-    texture = new Texture;
+    texture = nullptr;
     // ----
 }
 
@@ -47,12 +24,10 @@ Game::~Game()
 void Game::run()
 {
     GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
+	AssetManager assetManager = AssetManager::getInstance();
 
-    if (!loadMedia(texture))
-    {
-        std::cerr << "Failed to load media!" << std::endl;
-    }
-    else
+	texture = assetManager.load("res/foo.png");
+    if (texture != nullptr)
     {
         int deltaTime = 0;
         while (isRunning)
