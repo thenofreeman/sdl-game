@@ -5,7 +5,6 @@
 class RectangleShape : public Shape
 {
     public:
-        RectangleShape(const int& x, const int& y, const int& w, const int& h, SDL_Color color);
         RectangleShape(SDL_Rect rect, SDL_Color color);
         virtual ~RectangleShape();
 

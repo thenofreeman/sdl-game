@@ -1,9 +1,5 @@
 #include "RectangleShape.h"
 
-RectangleShape::RectangleShape(const int& x, const int& y, const int& w, const int& h, SDL_Color color)
-    : Shape{color},
-      body{x, y, w, h}
-{ }
 RectangleShape::RectangleShape(SDL_Rect rect, SDL_Color color)
     : Shape{color},
       body{rect}
