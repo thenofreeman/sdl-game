@@ -10,12 +10,14 @@ class Texture
 {
     public:
         Texture();
+        Texture(std::string path, Vector2<int> dimensions);
         virtual ~Texture();
 
         bool load(std::string path);
 
         void update(const int& deltaTime) const;
         void draw(SDL_Renderer*& renderer) const;
+        void draw(SDL_Renderer*& renderer, SDL_Rect clipping) const;
 
         void setPosition(Vector2<int> newPosition);
         void setDimensions(Vector2<int> newDimensions);

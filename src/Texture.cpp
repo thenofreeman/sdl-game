@@ -10,6 +10,13 @@ Texture::Texture()
       dimensions{0, 0}
 { }
 
+Texture::Texture(std::string path, Vector2<int> dimensions)
+    : texture{nullptr},
+      dimensions{dimensions}
+{ 
+    load(path);
+}
+
 Texture::~Texture()
 { 
     free();
@@ -63,6 +70,12 @@ void Texture::draw(SDL_Renderer*& renderer) const
 { 
     SDL_Rect quad = { position.x, position.y, dimensions.x, dimensions.y };
     SDL_RenderCopy(renderer, texture, NULL, &quad);
+}
+
+void Texture::draw(SDL_Renderer*& renderer, SDL_Rect clipping) const
+{
+    SDL_Rect quad = { position.x, position.y, clipping.w, clipping.h };
+    SDL_RenderCopy(renderer, texture, &clipping, &quad);
 }
 
 void Texture::setPosition(Vector2<int> newPosition)
