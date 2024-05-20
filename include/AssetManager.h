@@ -19,7 +19,7 @@ class AssetManager
             return instance;
         }
 
-        Texture* load(std::string path);
+        Texture* loadTexture(std::string path);
 
     public:
 

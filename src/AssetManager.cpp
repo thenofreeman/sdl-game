@@ -11,7 +11,7 @@ AssetManager::~AssetManager()
     }
 }
 
-Texture* AssetManager::load(std::string path)
+Texture* AssetManager::loadTexture(std::string path)
 {
     Texture* newTexture = new Texture;
 

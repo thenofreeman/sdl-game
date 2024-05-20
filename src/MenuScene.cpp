@@ -15,7 +15,7 @@ MenuScene::~MenuScene()
 void MenuScene::initialize()
 {
 	AssetManager assetManager = AssetManager::getInstance();
-    texture = assetManager.load("res/foo.png");
+    texture = assetManager.loadTexture("res/foo.png");
 
     view = new View({10, 10, 100, 100}, texture);
 }
