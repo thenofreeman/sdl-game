@@ -71,8 +71,20 @@ void Texture::update(const int& deltaTime) const
 
 void Texture::draw(SDL_Renderer*& renderer) const
 { 
-    SDL_Rect quad = { position.x, position.y, dimensions.x, dimensions.y };
+    static SDL_Rect quad = { position.x, position.y, dimensions.x, dimensions.y };
     SDL_RenderCopy(renderer, texture, NULL, &quad);
+}
+
+void Texture::draw(SDL_Renderer*& renderer, const SDL_Rect& clipping) const
+{ 
+    static SDL_Rect quad = { 
+        position.x, 
+        position.y, 
+        clipping.w, 
+        clipping.h 
+    };
+
+    SDL_RenderCopy(renderer, texture, &clipping, &quad);
 }
 
 void Texture::setPosition(Vector2<int> newPosition)
@@ -93,11 +105,6 @@ Vector2<int> Texture::getPosition() const
 Vector2<int> Texture::getDimensions() const
 { 
     return dimensions;
-}
-
-void Texture::setUseClipping(const bool& useClipping)
-{
-    this->useClipping = useClipping;
 }
 
 void Texture::free()

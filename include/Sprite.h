@@ -5,15 +5,14 @@
 #include <SDL2/SDL.h>
 
 #include "AssetManager.h"
-#include "SpriteSheet.h"
+#include "Texture.h"
 #include "Vector.h"
 
 class Sprite
 {
     public:
-        Sprite(Texture* texture);
         Sprite(std::string path);
-        // Sprite(const SpriteSheet& spriteSheet, const SDL_Rect& clipping);
+        Sprite(Texture* texture);
         virtual ~Sprite();
 
         void update(const int& deltaTime) const;
@@ -24,12 +23,15 @@ class Sprite
         Vector2<int> getPosition() const;
         Vector2<int> getDimensions() const;
 
+        void setClipping(const SDL_Rect& clipping);
+
     public:
 
     private:
 
     private:
         Texture* texture;
+        SDL_Rect clipping;
 
         Vector2<int> position;
         Vector2<int> dimensions;

@@ -14,7 +14,9 @@ MenuScene::~MenuScene()
 
 void MenuScene::initialize()
 {
-    sprite = new Sprite("res/foo.png");
+    spritesheet = new SpriteSheet("res/dots.png");
+    sprite = spritesheet->createSprite({100, 0, 100, 100});
+    
 
     view = new View({10, 10, 100, 100}, sprite);
 }

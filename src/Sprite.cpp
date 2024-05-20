@@ -8,21 +8,18 @@ Sprite::Sprite(std::string path)
     AssetManager& assetManager = AssetManager::getInstance();
 
     texture = assetManager.loadTexture(path);
-    texture->setUseClipping(false);
     texture->setPosition(position);
 
     dimensions = texture->getDimensions();
 }
 
-// Sprite::Sprite(const SpriteSheet& spriteSheet, const SDL_Rect& clipping)
-//     : position{0, 0},
-//       dimensions{0, 0},
-//       texture{nullptr}
-// { 
-//     texture = new Texture(spriteSheet->getTexture());
-//     texture->setUseClipping(true);
-//     texture->setPosition(position);
-// }
+Sprite::Sprite(Texture* texture)
+    : position{0, 0},
+      dimensions{0, 0},
+      texture{texture}
+{
+    texture->setPosition(position);
+}
 
 Sprite::~Sprite()
 {
@@ -35,7 +32,7 @@ void Sprite::update(const int& deltaTime) const
 
 void Sprite::draw(SDL_Renderer*& renderer) const
 {
-    texture->draw(renderer);
+    texture->draw(renderer, clipping);
 }
 
 void Sprite::setPosition(Vector2<int> newPosition)
@@ -56,4 +53,9 @@ Vector2<int> Sprite::getPosition() const
 Vector2<int> Sprite::getDimensions() const
 {
     return dimensions;
+}
+
+void Sprite::setClipping(const SDL_Rect& clipping)
+{
+    this->clipping = clipping;
 }

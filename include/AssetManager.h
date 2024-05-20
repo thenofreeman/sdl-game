@@ -7,8 +7,6 @@
 #include <SDL2/SDL_image.h>
 
 #include "Texture.h"
-#include "Sprite.h"
-#include "SpriteSheet.h"
 
 class AssetManager
 {
@@ -27,6 +25,7 @@ class AssetManager
 
     private:
         std::vector<Texture*> textures;
+        std::vector<SDL_Texture*> rawTextures;
 
     private:
         AssetManager();

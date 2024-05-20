@@ -4,23 +4,24 @@
 
 #include <SDL2/SDL.h>
 
+#include "Sprite.h"
 #include "Texture.h"
 #include "Vector.h"
 
 class SpriteSheet
 {
     public:
-        SpriteSheet(std::string path, Vector2<int> dimensions);
+        SpriteSheet(std::string path);
         virtual ~SpriteSheet();
 
-        void setDimensions(Vector2<int> newDimensions);
         Vector2<int> getDimensions() const;
 
-        Texture* getTexture() const;
+        Sprite* createSprite(const SDL_Rect& clipping) const;
 
     public:
 
     private:
+        void setDimensions(Vector2<int> newDimensions);
 
     private:
         Texture* texture;
