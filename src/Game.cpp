@@ -46,7 +46,8 @@ void Game::processEvents()
 		if (event.type == SDL_QUIT)
 			isRunning = false;
 		else 
-			scene->processEvents(event);
+			if (event.type == SDL_KEYDOWN)
+				bool eventProcessed = scene->processEvents(event);
 	}
 }
 

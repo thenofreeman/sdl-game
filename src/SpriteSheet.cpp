@@ -24,8 +24,7 @@ Vector2<int> SpriteSheet::getDimensions() const
 
 Sprite* SpriteSheet::createSprite(const SDL_Rect& clipping) const
 {
-    Sprite* newSprite = new Sprite(texture);
-    newSprite->setClipping(clipping);
+    Sprite* newSprite = new Sprite(texture, clipping);
     newSprite->setDimensions({ clipping.w, clipping.h });
 
     return newSprite;

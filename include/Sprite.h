@@ -12,7 +12,7 @@ class Sprite
 {
     public:
         Sprite(std::string path);
-        Sprite(Texture* texture);
+        Sprite(Texture* texture, const SDL_Rect& clipping);
         virtual ~Sprite();
 
         void update(const int& deltaTime) const;
@@ -22,8 +22,6 @@ class Sprite
         void setDimensions(Vector2<int> newDimensions);
         Vector2<int> getPosition() const;
         Vector2<int> getDimensions() const;
-
-        void setClipping(const SDL_Rect& clipping);
 
     public:
 

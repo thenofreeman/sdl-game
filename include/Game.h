@@ -5,8 +5,8 @@
 #include <SDL2/SDL.h>
 
 #include "GlobalEnvironment.h"
-#include "Scene.h"
 #include "MenuScene.h"
+#include "Scene.h"
 
 class Game
 {

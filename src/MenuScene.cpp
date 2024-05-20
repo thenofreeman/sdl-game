@@ -3,8 +3,7 @@
 #include "AssetManager.h"
 
 MenuScene::MenuScene()
-    : sprite{nullptr},
-      view{nullptr}
+    : sprite{nullptr}
 { }
 
 MenuScene::~MenuScene()
@@ -16,10 +15,12 @@ void MenuScene::initialize()
 {
     spritesheet = new SpriteSheet("res/dots.png");
     sprite = spritesheet->createSprite({ 0, 0, 100, 100 });
-    sprite->setPosition({ 50, 50 });
-    
+    sprite->setPosition({ 0, 0 });
 
-    view = new View({ 50, 50, 150, 150 }, sprite);
+    Action* actionA = new PositionAAction;
+    Action* actionB = new PositionBAction;
+    inputHandler.bindInput(SDLK_h, actionA);
+    inputHandler.bindInput(SDLK_l, actionB);
 }
 
 void MenuScene::shutdown()
@@ -27,22 +28,30 @@ void MenuScene::shutdown()
 
 }
 
-void MenuScene::processEvents(SDL_Event& event)
+bool MenuScene::processEvents(SDL_Event& event)
 {
+    bool eventProcessed = true;
 
-}
+    Action* newAction = inputHandler.handleInput(event.key.keysym.sym);
 
-void MenuScene::handleInput()
-{
+    if (newAction != nullptr)
+        actionStack.push(newAction);
+    else
+        eventProcessed = false;
 
+    return eventProcessed;
 }
 
 void MenuScene::update(const int& deltaTime)
 {
-
+    if (!actionStack.empty())
+    {
+        actionStack.top()->execute(sprite);
+        actionStack.pop();
+    }
 }
 
 void MenuScene::draw(SDL_Renderer*& renderer) const
 {
-	view->draw(renderer);
+	sprite->draw(renderer);
 }

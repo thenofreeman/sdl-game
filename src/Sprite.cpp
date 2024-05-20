@@ -3,20 +3,23 @@
 Sprite::Sprite(std::string path)
     : position{0, 0},
       dimensions{0, 0},
-      texture{nullptr}
+      texture{nullptr},
+      clipping{0,0,0,0}
 { 
     AssetManager& assetManager = AssetManager::getInstance();
 
     texture = assetManager.loadTexture(path);
     texture->setPosition(position);
+    clipping = { texture->getPosition().x, texture->getPosition().y, texture->getDimensions().x, texture->getDimensions().y };
 
     dimensions = texture->getDimensions();
 }
 
-Sprite::Sprite(Texture* texture)
+Sprite::Sprite(Texture* texture, const SDL_Rect& clipping)
     : position{0, 0},
       dimensions{0, 0},
-      texture{texture}
+      texture{texture},
+      clipping{clipping}
 {
     texture->setPosition(position);
 }
@@ -54,9 +57,4 @@ Vector2<int> Sprite::getPosition() const
 Vector2<int> Sprite::getDimensions() const
 {
     return dimensions;
-}
-
-void Sprite::setClipping(const SDL_Rect& clipping)
-{
-    this->clipping = clipping;
 }

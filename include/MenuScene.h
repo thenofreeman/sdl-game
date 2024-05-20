@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 
+#include "Action.h"
 #include "Scene.h"
 #include "SpriteSheet.h"
 #include "Sprite.h"
@@ -16,8 +17,7 @@ class MenuScene : public Scene
         virtual void initialize();
         virtual void shutdown();
 
-        virtual void processEvents(SDL_Event& event);
-        virtual void handleInput();
+        virtual bool processEvents(SDL_Event& event);
         virtual void update(const int& deltaTime);
         virtual void draw(SDL_Renderer*& renderer) const;
 
@@ -28,6 +28,5 @@ class MenuScene : public Scene
     private:
         SpriteSheet* spritesheet;
         Sprite* sprite;
-        View* view;
 
 };

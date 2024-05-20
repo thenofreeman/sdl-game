@@ -7,15 +7,13 @@
 Texture::Texture()
     : texture{nullptr},
       position{0, 0},
-      dimensions{0, 0},
-      clipping{}
+      dimensions{0, 0}
 { }
 
 Texture::Texture(std::string path, Vector2<int> dimensions)
     : texture{nullptr},
       position{0, 0},
-      dimensions{dimensions},
-      clipping{}
+      dimensions{dimensions}
 { 
     load(path);
 }
@@ -71,13 +69,13 @@ void Texture::update(const int& deltaTime) const
 
 void Texture::draw(SDL_Renderer*& renderer) const
 { 
-    static SDL_Rect quad = { position.x, position.y, dimensions.x, dimensions.y };
+    SDL_Rect quad = { position.x, position.y, dimensions.x, dimensions.y };
     SDL_RenderCopy(renderer, texture, NULL, &quad);
 }
 
 void Texture::draw(SDL_Renderer*& renderer, const SDL_Rect& clipping) const
 { 
-    static SDL_Rect quad = { 
+    SDL_Rect quad = { 
         position.x, 
         position.y, 
         clipping.w, 

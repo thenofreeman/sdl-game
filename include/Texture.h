@@ -32,11 +32,8 @@ class Texture
 
     private:
         SDL_Texture* texture;
-        SDL_Rect clipping;
 
         Vector2<int> position;
         Vector2<int> dimensions;
-
-        bool useClipping;
 
 };
