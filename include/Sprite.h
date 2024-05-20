@@ -1,14 +1,19 @@
 #pragma once
 
+#include <string>
+
 #include <SDL2/SDL.h>
 
+#include "AssetManager.h"
 #include "SpriteSheet.h"
 #include "Vector.h"
 
 class Sprite
 {
     public:
-        Sprite(SpriteSheet* spriteSheet, const SDL_Rect& clipping);
+        Sprite(Texture* texture);
+        Sprite(std::string path);
+        // Sprite(const SpriteSheet& spriteSheet, const SDL_Rect& clipping);
         virtual ~Sprite();
 
         void update(const int& deltaTime) const;
@@ -24,8 +29,7 @@ class Sprite
     private:
 
     private:
-        SpriteSheet* sheet;
-        SDL_Rect clipping;
+        Texture* texture;
 
         Vector2<int> position;
         Vector2<int> dimensions;

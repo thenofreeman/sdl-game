@@ -7,6 +7,8 @@
 #include <SDL2/SDL_image.h>
 
 #include "Texture.h"
+#include "Sprite.h"
+#include "SpriteSheet.h"
 
 class AssetManager
 {

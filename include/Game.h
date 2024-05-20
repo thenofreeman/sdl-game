@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h>
 
 #include "GlobalEnvironment.h"
-#include "Texture.h"
 #include "Scene.h"
 #include "MenuScene.h"
 

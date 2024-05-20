@@ -2,12 +2,12 @@
 
 #include <SDL2/SDL.h>
 
-#include "Texture.h"
+#include "Sprite.h"
 
 class View
 {
     public:
-        View(SDL_Rect rect, Texture*& texture);
+        View(SDL_Rect rect, Sprite*& sprite);
         virtual ~View();
 
         virtual void update(const int& deltaTime);
@@ -19,6 +19,6 @@ class View
 
     private:
         SDL_Rect body;
-        Texture* texture;
+        Sprite* sprite;
 
 };

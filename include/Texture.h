@@ -17,12 +17,12 @@ class Texture
 
         void update(const int& deltaTime) const;
         void draw(SDL_Renderer*& renderer) const;
-        void draw(SDL_Renderer*& renderer, SDL_Rect clipping) const;
 
         void setPosition(Vector2<int> newPosition);
         void setDimensions(Vector2<int> newDimensions);
         Vector2<int> getPosition() const;
         Vector2<int> getDimensions() const;
+        void setUseClipping(const bool& useClipping);
 
         void free();
 
@@ -32,8 +32,11 @@ class Texture
 
     private:
         SDL_Texture* texture;
+        SDL_Rect clipping;
 
         Vector2<int> position;
         Vector2<int> dimensions;
+
+        bool useClipping;
 
 };

@@ -3,21 +3,20 @@
 #include "AssetManager.h"
 
 MenuScene::MenuScene()
-    : texture{new Texture},
+    : sprite{nullptr},
       view{nullptr}
 { }
 
 MenuScene::~MenuScene()
 { 
-    delete texture;
+    delete sprite;
 }
 
 void MenuScene::initialize()
 {
-	AssetManager assetManager = AssetManager::getInstance();
-    texture = assetManager.loadTexture("res/foo.png");
+    sprite = new Sprite("res/foo.png");
 
-    view = new View({10, 10, 100, 100}, texture);
+    view = new View({10, 10, 100, 100}, sprite);
 }
 
 void MenuScene::shutdown()

@@ -1,16 +1,33 @@
 #include "Sprite.h"
 
-Sprite::Sprite(SpriteSheet* spriteSheet, const SDL_Rect& clipping)
+Sprite::Sprite(std::string path)
     : position{0, 0},
       dimensions{0, 0},
-      sheet{spriteSheet},
-      clipping{clipping}
-{ }
+      texture{nullptr}
+{ 
+    AssetManager& assetManager = AssetManager::getInstance();
+
+    texture = assetManager.loadTexture(path);
+    texture->setUseClipping(false);
+    texture->setPosition(position);
+
+    dimensions = texture->getDimensions();
+}
+
+// Sprite::Sprite(const SpriteSheet& spriteSheet, const SDL_Rect& clipping)
+//     : position{0, 0},
+//       dimensions{0, 0},
+//       texture{nullptr}
+// { 
+//     texture = new Texture(spriteSheet->getTexture());
+//     texture->setUseClipping(true);
+//     texture->setPosition(position);
+// }
 
 Sprite::~Sprite()
 {
-    delete sheet;
-    sheet = nullptr;
+    delete texture;
+    texture = nullptr;
 }
 
 void Sprite::update(const int& deltaTime) const
@@ -18,7 +35,7 @@ void Sprite::update(const int& deltaTime) const
 
 void Sprite::draw(SDL_Renderer*& renderer) const
 {
-    sheet->getTexture()->draw(renderer, clipping);
+    texture->draw(renderer);
 }
 
 void Sprite::setPosition(Vector2<int> newPosition)

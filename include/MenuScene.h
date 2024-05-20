@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "Scene.h"
-#include "Texture.h"
+#include "Sprite.h"
 #include "View.h"
 
 class MenuScene : public Scene
@@ -25,7 +25,7 @@ class MenuScene : public Scene
     private:
 
     private:
-        Texture* texture;
+        Sprite* sprite;
         View* view;
 
 };
