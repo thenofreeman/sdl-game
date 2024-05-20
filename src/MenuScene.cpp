@@ -1,7 +1,5 @@
 #include "MenuScene.h"
 
-#include "AssetManager.h"
-
 MenuScene::MenuScene()
     : sprite{nullptr}
 { }
@@ -21,6 +19,7 @@ void MenuScene::initialize()
     Action* actionB = new PositionBAction;
     inputHandler.bindInput(SDLK_h, actionA);
     inputHandler.bindInput(SDLK_l, actionB);
+
 }
 
 void MenuScene::shutdown()

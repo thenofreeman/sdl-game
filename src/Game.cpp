@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include "AssetManager.h"
-
 Game::Game()
     : isRunning{true},
 	  scene{new MenuScene}
