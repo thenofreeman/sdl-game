@@ -15,10 +15,11 @@ MenuScene::~MenuScene()
 void MenuScene::initialize()
 {
     spritesheet = new SpriteSheet("res/dots.png");
-    sprite = spritesheet->createSprite({100, 0, 100, 100});
+    sprite = spritesheet->createSprite({ 0, 0, 100, 100 });
+    sprite->setPosition({ 50, 50 });
     
 
-    view = new View({10, 10, 100, 100}, sprite);
+    view = new View({ 50, 50, 150, 150 }, sprite);
 }
 
 void MenuScene::shutdown()

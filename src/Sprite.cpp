@@ -38,6 +38,7 @@ void Sprite::draw(SDL_Renderer*& renderer) const
 void Sprite::setPosition(Vector2<int> newPosition)
 {
     position = newPosition;
+    texture->setPosition(newPosition);
 }
 
 void Sprite::setDimensions(Vector2<int> newDimensions)
