@@ -33,7 +33,7 @@ bool MenuScene::processEvents(SDL_Event& event)
 
     Action* newAction = inputHandler.handleInput(event.key.keysym.sym);
 
-    if (newAction != nullptr)
+    if (newAction)
         actionStack.push(newAction);
     else
         eventProcessed = false;

@@ -34,7 +34,7 @@ bool Texture::load(std::string path)
     GlobalEnvironment& gEnvironment = GlobalEnvironment::getInstance();
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
+	if (!loadedSurface)
 	{
 		std::cerr << "Unable to load texture image " << path << "! SDL Error: " << IMG_GetError() << std::endl;
 		success = false;
@@ -45,7 +45,7 @@ bool Texture::load(std::string path)
         SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, key.r, key.g, key.b));
 
         newTexture = SDL_CreateTextureFromSurface(gEnvironment.renderer, loadedSurface);
-        if (newTexture == nullptr)
+        if (!newTexture)
         {
             std::cerr << "Unable to create texture from image " << path << "! SDL Error: " << SDL_GetError() << std::endl;
             success = false;
@@ -107,7 +107,7 @@ Vector2<int> Texture::getDimensions() const
 
 void Texture::free()
 { 
-    if (texture != nullptr)
+    if (texture)
     {
         SDL_DestroyTexture(texture);
 

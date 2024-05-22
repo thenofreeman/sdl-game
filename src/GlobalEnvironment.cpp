@@ -24,7 +24,7 @@ bool GlobalEnvironment::initialize()
 	else
 	{
 		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-		if(window == nullptr)
+		if(!window)
 		{
 			std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 			success = false;
@@ -32,7 +32,7 @@ bool GlobalEnvironment::initialize()
 		else
 		{
 			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-			if (renderer == nullptr)
+			if (!renderer)
 			{
 				std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 				success = false;
