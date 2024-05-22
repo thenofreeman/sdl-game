@@ -1,5 +1,6 @@
-# 
+# Build files
 build/
+build.log
 
 # Project Environments
 .vscode
