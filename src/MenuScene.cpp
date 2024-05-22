@@ -27,11 +27,11 @@ void MenuScene::shutdown()
 
 }
 
-bool MenuScene::processEvents(SDL_Event& event)
+bool MenuScene::processEvents(const SDL_Event& event)
 {
     bool eventProcessed = true;
 
-    Action* newAction = inputHandler.handleInput(event.key.keysym.sym);
+    Action* newAction = inputHandler.handleInput(event);
 
     if (newAction)
         actionStack.push(newAction);

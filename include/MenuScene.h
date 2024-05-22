@@ -17,7 +17,7 @@ class MenuScene : public Scene
         virtual void initialize();
         virtual void shutdown();
 
-        virtual bool processEvents(SDL_Event& event);
+        virtual bool processEvents(const SDL_Event& event);
         virtual void update(const int& deltaTime);
         virtual void draw(SDL_Renderer*& renderer) const;
 

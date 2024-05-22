@@ -15,7 +15,7 @@ class Scene
         virtual void initialize() = 0;
         virtual void shutdown() = 0;
 
-        virtual bool processEvents(SDL_Event& event) = 0;
+        virtual bool processEvents(const SDL_Event& event) = 0;
         virtual void update(const int& deltaTime) = 0;
         virtual void draw(SDL_Renderer*& renderer) const = 0;
 
