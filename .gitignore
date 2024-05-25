@@ -6,3 +6,6 @@ build/
 
 # Tools
 cppcheck/
+
+# Other
+**/*:.Zone.Identifier
