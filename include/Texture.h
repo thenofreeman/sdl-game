@@ -21,6 +21,8 @@ class Texture
 
         void setPosition(Vector2<int> newPosition);
         void setDimensions(Vector2<int> newDimensions);
+        void setColor(const SDL_Color& color);
+
         Vector2<int> getPosition() const;
         Vector2<int> getDimensions() const;
 

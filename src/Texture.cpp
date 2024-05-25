@@ -95,6 +95,11 @@ void Texture::setDimensions(Vector2<int> newDimensions)
     dimensions = newDimensions;
 }
 
+void Texture::setColor(const SDL_Color& color)
+{
+    SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+}
+
 Vector2<int> Texture::getPosition() const
 { 
     return position;
