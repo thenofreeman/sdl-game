@@ -3,3 +3,6 @@ build/
 
 # Project Environments
 .vscode
+
+# Tools
+cppcheck/
