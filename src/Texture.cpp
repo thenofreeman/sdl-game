@@ -100,6 +100,16 @@ void Texture::setColor(const SDL_Color& color)
     SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
 }
 
+void Texture::setBlendMode(const SDL_BlendMode& blending)
+{
+    SDL_SetTextureBlendMode(texture, blending);
+}
+
+void Texture::setTransparency(const Uint8& alpha)
+{
+    SDL_SetTextureAlphaMod(texture, alpha);
+}
+
 Vector2<int> Texture::getPosition() const
 { 
     return position;
